@@ -1,11 +1,134 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Atlas Maintenance France</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlas Maintenance France</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+        }
+
+        header {
+            background: #005BAC;
+            color: white;
+            padding: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .cards {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            flex: 1;
+            min-width: 220px;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            color: #005BAC;
+        }
+
+        table {
+            width: 100%;
+            background: white;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+
+        th {
+            background: #005BAC;
+            color: white;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+    </style>
 </head>
+
 <body>
-  <h1>Atlas Maintenance France</h1>
-  <p>Application en cours de développement.</p>
+
+<header>
+    <h1>🔧 Atlas Maintenance France</h1>
+    <p>Portail de pilotage maintenance</p>
+</header>
+
+<div class="container">
+
+    <div class="cards">
+
+        <div class="card">
+            <h2>🏭 Sites</h2>
+            <p>12</p>
+        </div>
+
+        <div class="card">
+            <h2>⚙️ Équipements</h2>
+            <p>245</p>
+        </div>
+
+        <div class="card">
+            <h2>🛠 Interventions</h2>
+            <p>32</p>
+        </div>
+
+        <div class="card">
+            <h2>📄 Documents</h2>
+            <p>158</p>
+        </div>
+
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Site</th>
+                <th>Équipement</th>
+                <th>Date</th>
+                <th>Statut</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>Nantes</td>
+                <td>Four N°1</td>
+                <td>03/08/2026</td>
+                <td>Terminé</td>
+            </tr>
+
+            <tr>
+                <td>Paris</td>
+                <td>Compresseur A</td>
+                <td>05/08/2026</td>
+                <td>Planifié</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
 </body>
 </html>
