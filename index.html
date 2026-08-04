@@ -63,6 +63,11 @@ fetch('atlas-sites.json')
                 🕒 ${site.horaire}<br>
                 ☎ ${site.telephoneMagasin}<br><br>
 
+                <b>Responsable magasin</b><br>
+                🏪 ${site.responsable}<br>
+                📱 ${site.responsablePortable}<br>
+                📧 ${site.responsableMail}
+
                 <b>CRM</b><br>
                 👤 ${site.crm}<br>
                 📱 ${site.crmPortable}<br>
@@ -73,10 +78,6 @@ fetch('atlas-sites.json')
                 📱 ${site.rrmPortable}<br>
                 📧 ${site.rrmMail}<br><br>
 
-                <b>Responsable magasin</b><br>
-                🏪 ${site.responsable}<br>
-                📱 ${site.responsablePortable}<br>
-                📧 ${site.responsableMail}
             `;
 
             L.marker([
