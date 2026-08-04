@@ -1,79 +1,94 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Atlas Maintenance France</title>
+<title>Atlas Maintenance France</title>
 
-   <link rel="stylesheet"
-       href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet"
+   href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
+<style>
+html, body {
+    margin: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
 
-        header {
-            background-color: #005BAC;
-            color: white;
-            padding: 15px 20px;
-        }
-
-        header h1 {
-            margin: 0;
-        }
-
-        #map {
-            height: calc(100vh - 70px);
-            width: 100%;
-        }
-    </style>
+#map {
+    width: 100%;
+    height: 100vh;
+}
+</style>
 </head>
+
 <body>
 
-    <header>
-        <h1>🔧 Atlas Maintenance France</h1>
-    </header>
+<div id="map"></div>
 
-    <div id="map"></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"</script>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
 
-    <script>
+const map = L.map('map').setView([46.6, 2.2], 6);
 
-        // Création de la carte
-        const map = L.map('map').setView([46.6, 2.2], 6);
+L.tileLayer(
+'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+{
+    attribution: '&copy; OpenStreetMap'
+}
+).addTo(map);
 
-        // Fond OpenStreetMap
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; OpenStreetMap'
-        }).addTo(map);
+fetch('atlas-sites.json')
+.then(response => response.json())
+.then(data => {
 
-        // Nantes Atlantis
-        L.marker([47.224109, -1.623505])
+    data.forEach(site => {
+
+        if(site.latitude && site.longitude){
+
+            const popup = `
+                <b>${site.site}</b><br><br>
+
+                📍 ${site.adresse}<br>
+                🌍 ${site.region}<br>
+                🏢 ${site.filiale}<br>
+                📋 ${site.typologie}<br><br>
+
+                🕒 ${site.horaire}<br>
+                ☎ ${site.telephoneMagasin}<br><br>
+
+                <b>CRM</b><br>
+                👤 ${site.crm}<br>
+                📱 ${site.crmPortable}<br>
+                📧 ${site.crmMail}<br><br>
+
+                <b>RRM</b><br>
+                👔 ${site.rrm}<br>
+                📱 ${site.rrmPortable}<br>
+                📧 ${site.rrmMail}<br><br>
+
+                <b>Responsable magasin</b><br>
+                🏪 ${site.responsable}<br>
+                📱 ${site.responsablePortable}<br>
+                📧 ${site.responsableMail}
+            `;
+
+            L.marker([
+                site.latitude,
+                site.longitude
+            ])
             .addTo(map)
-            .bindPopup(
-                "<b>NANTES ATLANTIS</b><br>Emmanuel Maillard"
-            );
+            .bindPopup(popup);
 
-        // Lille
-        L.marker([50.6292, 3.0573])
-            .addTo(map)
-            .bindPopup(
-                "<b>LILLE</b>"
-            );
+        }
 
-        // Paris
-        L.marker([48.8566, 2.3522])
-            .addTo(map)
-            .bindPopup(
-                "<b>PARIS</b>"
-            );
+    });
 
-    </script>
+});
+
+</script>
 
 </body>
 </html>
