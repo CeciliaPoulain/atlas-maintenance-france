@@ -51,7 +51,9 @@ fetch('atlas-sites.json')
         if(site.latitude && site.longitude){
 
             const popup = `
-                <b>${site.site}</b><br><br>
+                <b style="font-size:18px;">
+                🏪 ${site.site}
+                </b>
 
                 📍 ${site.adresse}<br>
                 📮 ${site.cp} ${site.ville}<br><br>
