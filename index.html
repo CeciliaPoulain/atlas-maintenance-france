@@ -11,6 +11,7 @@
    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
 <style>
+   
 html, 
     body {
     margin: 0;
@@ -22,13 +23,35 @@ html,
     width: 100%;
     height: 100vh;
 }
+
+#search-container {
+   position: absolute;
+   top: 10px;
+   left: 60px;
+   z-index: 9999;
+   background: white;
+   padding: 8px;
+   border-radius: 6px;
+   box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+   }
+
+#searchBox {   
+   width: 250px;
+   padding: 6px;
+   }
+   
 </style>
+   
 </head>
 
 <body>
 
 <div id="search-container">
-<input type="text" id="searchBox" placeholder="🔍 Rechercher un site..." />
+<input
+   type="text"
+   id="searchBox"
+   placeholder="🔍 Rechercher un site..."
+   />
 <button onclick="searchSite()">Rechercher</button>
 </div>
    
@@ -47,6 +70,8 @@ L.tileLayer(
 }
 ).addTo(map);
 
+const atlasMarkers = [];
+   
 fetch('atlas-sites.json')
 .then(response => response.json())
 .then(data => {
@@ -86,20 +111,53 @@ fetch('atlas-sites.json')
 
             `;
 
-            L.marker([
+            const marker = L.marker([
                 site.latitude,
                 site.longitude
             ])
             .addTo(map)
             .bindPopup(popup);
 
-        }
+            atlasMarkers.push({
+            site: site.site,   
+            marker: marker
+            });
+           
+                   }
 
     });
 
 });
+   
+function searchSite() {
 
+    const search = document
+        .getElementById("searchBox")
+        .value
+        .toUpperCase();
+
+    const result = atlasMarkers.find(item =>
+        item.site.toUpperCase().includes(search)
+    );
+
+    if (result) {
+
+        map.setView(
+            result.marker.getLatLng(),
+            12
+        );
+
+        result.marker.openPopup();
+
+    } else {
+
+        alert("Site introuvable");
+
+    }
+}
+         
 </script>
 
 </body>
+   
 </html>
