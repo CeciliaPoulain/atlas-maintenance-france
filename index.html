@@ -160,19 +160,31 @@ crmFilter.addEventListener("change", function () {
 
     const selectedCRM = this.value;
 
-    atlasMarkers.forEach(item => {
+   const visibleMarkers = [];
 
-        if (
-            selectedCRM === "" ||
-            item.marker.crm === selectedCRM
-        ) {
-            item.marker.addTo(map);
-        }
-        else {
-            map.removeLayer(item.marker);
-        }
+atlasMarkers.forEach(item => {
 
-    });
+    if (
+        selectedCRM === "" ||
+        item.marker.crm === selectedCRM
+    ) {
+
+        item.marker.addTo(map);
+        visibleMarkers.push(
+            item.marker.getLatLng()
+        );
+
+    } else {
+
+        map.removeLayer(item.marker);
+
+    }
+
+});
+
+if (visibleMarkers.length > 0) {
+    map.fitBounds(visibleMarkers);
+}
 
 });
 
