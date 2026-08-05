@@ -53,6 +53,13 @@ html,
    placeholder="🔍 Rechercher un site..."
    />
 <button onclick="searchSite()">Rechercher</button>
+
+ <br><br>
+
+<select id="crmFilter"> 
+   <option value="">Tous les Coordinateurs</option>
+   </select>
+   
 </div>
    
 <div id="map"></div>
@@ -71,6 +78,8 @@ L.tileLayer(
 ).addTo(map);
 
 const atlasMarkers = [];
+   
+const crmList = new Set();
    
 fetch('atlas-sites.json')
 .then(response => response.json())
@@ -120,15 +129,52 @@ fetch('atlas-sites.json')
 
             atlasMarkers.push({
             site: site.site,   
-            marker: marker
+            marker: marker            
             });
            
+           marker.crm = site.crm;
+
+           crmList.add(site.crm);
                    }
 
     });
 
 });
-   
+
+   const crmFilter =
+    document.getElementById("crmFilter");
+
+crmList.forEach(crm => {
+
+    const option =
+        document.createElement("option");
+
+    option.value = crm;
+    option.text = crm;
+
+    crmFilter.appendChild(option);
+
+});
+
+crmFilter.addEventListener("change", function () {
+
+    const selectedCRM = this.value;
+
+    atlasMarkers.forEach(item => {
+
+        if (
+            selectedCRM === "" ||
+            item.marker.crm === selectedCRM
+        ) {
+            item.marker.addTo(map);
+        }
+        else {
+            map.removeLayer(item.marker);
+        }
+
+    });
+
+});
 function searchSite() {
 
     const search = document
