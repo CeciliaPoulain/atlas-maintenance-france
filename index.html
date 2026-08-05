@@ -127,19 +127,19 @@ fetch('atlas-sites.json')
             .addTo(map)
             .bindPopup(popup);
 
+           marker.crm = site.crm;
+           
             atlasMarkers.push({
             site: site.site,   
-            marker: marker            
-            });
+            marker: marker                                  
            
-           marker.crm = site.crm;
-
+         });
+           
            crmList.add(site.crm);
+           
                    }
 
     });
-
-});
 
    const crmFilter =
     document.getElementById("crmFilter");
