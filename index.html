@@ -147,8 +147,9 @@ fetch('atlas-sites.json')
 
            marker.filiale = site.filiale;
 
+         if (site.filiale) {  
            filialeList.add(site.filiale);
-                   }
+                   }}
 
     });
 
@@ -193,6 +194,13 @@ atlasMarkers.forEach(item => {
 
 });
    
+
+   
+if (visibleMarkers.length > 0) {
+    map.fitBounds(visibleMarkers);
+}
+
+});
 const filialeFilter =
     document.getElementById("filialeFilter");
 
@@ -244,13 +252,6 @@ filialeFilter.addEventListener("change", function () {
     }
 
 });
-   
-if (visibleMarkers.length > 0) {
-    map.fitBounds(visibleMarkers);
-}
-
-});
-
 });
    
 function searchSite() {
