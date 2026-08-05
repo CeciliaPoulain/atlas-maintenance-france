@@ -59,6 +59,12 @@ html,
 <select id="crmFilter"> 
    <option value="">👤 Tous les Coordinateurs</option>
    </select>
+
+<br><br>
+
+<select id="filialeFilter">
+    <option value="">🏢 Toutes les Filiales</option>
+</select>
    
 </div>
    
@@ -80,6 +86,8 @@ L.tileLayer(
 const atlasMarkers = [];
    
 const crmList = new Set();
+
+const filialeList = new Set();   
    
 fetch('atlas-sites.json')
 .then(response => response.json())
@@ -136,7 +144,10 @@ fetch('atlas-sites.json')
          });
            
            crmList.add(site.crm);
-           
+
+           marker.filiale = site.filiale;
+
+           filialeList.add(site.filiale);
                    }
 
     });
@@ -181,7 +192,59 @@ atlasMarkers.forEach(item => {
     }
 
 });
+   
+const filialeFilter =
+    document.getElementById("filialeFilter");
 
+filialeList.forEach(filiale => {
+
+    const option =
+        document.createElement("option");
+
+    option.value = filiale;
+    option.text = filiale;
+
+    filialeFilter.appendChild(option);
+
+});
+
+filialeFilter.addEventListener("change", function () {
+
+    const selectedFiliale = this.value;
+
+    const visibleMarkers = [];
+
+    atlasMarkers.forEach(item => {
+
+        if (
+            selectedFiliale === "" ||
+            item.marker.filiale === selectedFiliale
+        ) {
+
+            item.marker.addTo(map);
+
+            visibleMarkers.push(
+                item.marker.getLatLng()
+            );
+
+        } else {
+
+            map.removeLayer(item.marker);
+
+        }
+
+    });
+
+    if (visibleMarkers.length > 0) {
+
+        map.fitBounds(
+            visibleMarkers
+        );
+
+    }
+
+});
+   
 if (visibleMarkers.length > 0) {
     map.fitBounds(visibleMarkers);
 }
