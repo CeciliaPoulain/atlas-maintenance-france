@@ -81,8 +81,18 @@ html,
 
 <script>
 
-const map = L.map('map').setView([46.6, 2.2], 6);
+const franceBounds = [
+    [41.0, -5.5],
+    [51.5, 9.5]
+];
 
+const map = L.map('map', {
+    maxBounds: franceBounds,
+    maxBoundsViscosity: 1.0
+}).setView([46.6, 2.2], 6);
+
+   map.setMinZoom(6);
+   
 const plan = L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     {
