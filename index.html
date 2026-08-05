@@ -65,6 +65,13 @@ html,
 <select id="filialeFilter">
     <option value="">🏢 Toutes les Filiales</option>
 </select>
+
+ <br><br>
+
+<select id="mapType">
+    <option value="plan">🗺️ Plan</option>
+    <option value="satellite">🛰️ Satellite</option>
+</select> 
    
 </div>
    
@@ -91,13 +98,6 @@ const satellite = L.tileLayer(
 );
 
 plan.addTo(map);
-
-L.control.layers(
-    {
-        "🗺️ Plan": plan,
-        "🛰️ Satellite": satellite
-    }
-).addTo(map);
 
 const atlasMarkers = [];
    
@@ -299,6 +299,25 @@ filialeFilter.addEventListener("change", function () {
     }
 
 });
+});
+
+   const mapType =
+    document.getElementById("mapType");
+
+mapType.addEventListener("change", function () {
+
+    if (this.value === "satellite") {
+
+        map.removeLayer(plan);
+        satellite.addTo(map);
+
+    } else {
+
+        map.removeLayer(satellite);
+        plan.addTo(map);
+
+    }
+
 });
    
 function searchSite() {
