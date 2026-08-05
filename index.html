@@ -149,7 +149,7 @@ fetch('atlas-sites.json')
 const color =
     crmColors[site.crm] || "#666666";
            
-            const marker = L.marker([
+            const marker = L.circleMarker(
            [
                site.latitude,
                 site.longitude
