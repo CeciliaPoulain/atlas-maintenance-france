@@ -89,7 +89,7 @@ const franceBounds = [
 const map = L.map('map', {
     maxBounds: franceBounds,
     maxBoundsViscosity: 1.0
-}).setView([[46.6, 2.246.6, 2.2], 7);
+}).setView([[46.6, 2.2], 7);
 
    map.setMinZoom(6);
    
@@ -107,7 +107,7 @@ const satellite = L.tileLayer(
     }
 );
 
-plan.addTo(map);
+satellite.addTo(map);
 
 const atlasMarkers = [];
    
