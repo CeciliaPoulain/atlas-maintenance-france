@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html>atlas-maintenance-france/index.html
 <html lang="fr">
    
 <head>
@@ -128,10 +128,41 @@ fetch('atlas-sites.json')
 
             `;
 
+           const crmColors = {
+
+    "Aurelie JOLLY": "#87CEEB",
+    "Christophe DUPAS": "#003F88",
+    "Franck FORTAT": "#F77F00",
+    "Frederic PETIT": "#4B0082",
+    "Guillaume MONNET": "#FF66B3",
+    "Julien MARCOUX": "#8A2BE2",
+    "Karim RAHOUI": "#B8860B",
+    "Mikael VINET": "#D62828",
+    "Nathalie MARTINS": "#006400",
+    "Pierre GOUYOU": "#7CB342",
+    "Serge DOS RAMOS": "#00BCD4",
+    "Stephanie BOISSIERE": "#008B8B",
+    "Youssef ANDOUR": "#FFD60A"
+
+};
+
+const color =
+    crmColors[site.crm] || "#666666";
+           
             const marker = L.marker([
-                site.latitude,
+           [
+               site.latitude,
                 site.longitude
-            ])
+],
+{
+            radius: 8
+            fillColor: color, 
+            color: "#ffffff",
+            weight: 1,
+            opacity: 1,
+            fillOpacity: 0.9
+         }  
+         )  
             .addTo(map)
             .bindPopup(popup);
 
