@@ -190,8 +190,11 @@ const color =
          }  
          )  
             .addTo(map)
-            .bindPopup(popup);
-
+            .bindPopup(popup, {
+            autoPan: true,
+            autoPanPadding: [100, 150]  
+         });
+               
            marker.crm = site.crm;
            
             atlasMarkers.push({
