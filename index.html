@@ -193,7 +193,17 @@ const color =
             autoPan: true,
             autoPanPadding: [100, 150]  
          });
-               
+
+         marker.on("click", function () {
+
+         const pos = marker.getLatLng();
+
+         map.panTo([
+         pos.lat - 0.15,
+         pos.lng  
+         ]);
+   });
+           
            marker.crm = site.crm;
            
             atlasMarkers.push({
