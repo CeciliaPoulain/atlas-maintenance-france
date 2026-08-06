@@ -65,13 +65,6 @@ html,
 <select id="filialeFilter">
     <option value="">🏢 Toutes les Filiales</option>
 </select>
-
- <br><br>
-
-<select id="mapType">
-    <option value="satellite" selected>🛰️ Satellite</option>
-    <option value="plan">🗺️ Plan</option>
-</select> 
    
 </div>
    
@@ -81,27 +74,14 @@ html,
 
 <script>
 
-const map = L.map('map', {
-    
-}).setView([46.6, 2.2], 6);
+const map = L.map('map').setView([46.6, 2.2], 6);
 
-   map.setMinZoom(6);
-   
-const plan = L.tileLayer(
-    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-    {
-        attribution: '&copy; OpenStreetMap'
-    }
-);
-
-const satellite = L.tileLayer(
-    'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-    {
-        attribution: '&copy; Esri'
-    }
-);
-
-satellite.addTo(map);
+L.tileLayer(
+'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+{
+    attribution: '&copy; OpenStreetMap'
+}
+).addTo(map);
 
 const atlasMarkers = [];
    
@@ -148,57 +128,13 @@ fetch('atlas-sites.json')
 
             `;
 
-           const crmColors = {
-
-    "Aurelie JOLLY": "#87CEEB",
-    "Christophe DUPAS": "#003F88",
-    "Franck FORTAT": "#F77F00",
-    "Frederic PETIT": "#4B0082",
-    "Guillaume MONNET": "#FF66B3",
-    "Julien MARCOUX": "#8A2BE2",
-    "Karim RAHOUI": "#2F2F2F",
-    "Mikael VINET": "#800020",
-    "Nathalie MARTINS": "#006400",
-    "Pierre GOUYOU": "#7CB342",
-    "Serge DOS RAMOS": "#00BCD4",
-    "Stephanie BOISSIERE": "#008B8B",
-    "Youssef ANDOUR": "#FFD60A"
-
-};
-
-const color =
-    crmColors[site.crm] || "#666666";
-           
-            const marker = L.circleMarker(
-           [
-               site.latitude,
+            const marker = L.marker([
+                site.latitude,
                 site.longitude
-],
-{
-            radius: 8,
-            fillColor: color, 
-            color: "#ffffff",
-            weight: 1,
-            opacity: 1,
-            fillOpacity: 0.9
-         }  
-         )  
+            ])
             .addTo(map)
-            .bindPopup(popup, {
-            autoPan: true,
-            autoPanPadding: [100, 150]  
-         });
+            .bindPopup(popup);
 
-         marker.on("click", function () {
-
-         const pos = marker.getLatLng();
-
-         map.panTo([
-         pos.lat - 0.15,
-         pos.lng  
-         ]);
-   });
-           
            marker.crm = site.crm;
            
             atlasMarkers.push({
@@ -211,9 +147,8 @@ const color =
 
            marker.filiale = site.filiale;
 
-         if (site.filiale) {  
            filialeList.add(site.filiale);
-                   }}
+                   }
 
     });
 
@@ -258,13 +193,6 @@ atlasMarkers.forEach(item => {
 
 });
    
-
-   
-if (visibleMarkers.length > 0) {
-    map.fitBounds(visibleMarkers);
-}
-
-});
 const filialeFilter =
     document.getElementById("filialeFilter");
 
@@ -316,24 +244,12 @@ filialeFilter.addEventListener("change", function () {
     }
 
 });
+   
+if (visibleMarkers.length > 0) {
+    map.fitBounds(visibleMarkers);
+}
+
 });
-
-   const mapType =
-    document.getElementById("mapType");
-
-mapType.addEventListener("change", function () {
-
-    if (this.value === "satellite") {
-
-        map.removeLayer(plan);
-        satellite.addTo(map);
-
-    } else {
-
-        map.removeLayer(satellite);
-        plan.addTo(map);
-
-    }
 
 });
    
