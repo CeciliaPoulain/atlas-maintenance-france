@@ -339,10 +339,12 @@ function searchSite() {
 
     if (result) {
 
-        map.setView(
-            result.marker.getLatLng(),
-            12
-        );
+    const point = result.marker.getLatLng();
+
+map.setView(
+    [point.lat, point.lng + 0.3],
+    12
+);
 
         result.marker.openPopup();
 
