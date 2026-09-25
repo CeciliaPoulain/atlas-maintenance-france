@@ -10,21 +10,6 @@
 <link rel="stylesheet"
    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
-   #maj {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    z-index: 1000;
-
-    background: white;
-    padding: 8px 12px;
-
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-
-    font-family: Arial, sans-serif;
-    font-size: 13px;
-}
 <style>
    
 html, 
@@ -61,13 +46,6 @@ html,
 </head>
 
 <body>
-
-   <div id="maj">
-    🕒 Données mises à jour le :
-    <span id="dateMaj"></span>
-</div>
-
-   <div id="map"></div>
    
 <div id="search-container">
 <input
@@ -103,9 +81,6 @@ html,
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
-   
-document.getElementById("dateMaj").innerHTML =
-new Date().toLocaleString("fr-FR");
    
 const map = L.map('map', {
    
