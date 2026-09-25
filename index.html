@@ -125,6 +125,21 @@ const atlasMarkers = [];
 const crmList = new Set();
 
 const filialeList = new Set();   
+
+   fetch('atlas-meta.json')
+.then(response => response.json())
+.then(meta => {
+
+    document.getElementById('lastImport').innerHTML =
+        '🕒 Dernier import : ' + meta.last_import;
+
+})
+.catch(() => {
+
+    document.getElementById('lastImport').innerHTML =
+        '🕒 Dernier import : indisponible';
+
+});
    
 fetch('atlas-sites.json')
 .then(response => response.json())
